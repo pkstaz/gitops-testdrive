@@ -4,6 +4,9 @@ metadata:
   name: gitops-workshop
   namespace: openshift-gitops
 spec:
+  syncPolicy:
+    automated:
+      prune: true
   destination:
     server: 'https://kubernetes.default.svc'
   project: default
