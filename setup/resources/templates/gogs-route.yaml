@@ -9,3 +9,5 @@ spec:
     name: gogs
     weight: 100
   wildcardPolicy: None
+  port:
+    targetPort: 3000
