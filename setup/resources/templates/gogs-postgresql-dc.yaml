@@ -96,7 +96,7 @@ spec:
               mountPath: /var/lib/pgsql/data
           terminationMessagePolicy: File
           image: >-
-            image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:52a87fcf7d580750512ca0ccc569dce79c726fda64bf40a0159bc4ba30caac10
+            postgresql:10-el8
       serviceAccount: gogs
       volumes:
         - name: gogs-postgres-data
