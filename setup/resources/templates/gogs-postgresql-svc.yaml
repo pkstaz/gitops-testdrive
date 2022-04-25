@@ -10,7 +10,7 @@ spec:
   selector:
     app: gogs-postgresql
   ports:
-    name: postgresql
+    - name: postgresql
       protocol: TCP
       port: 5432
       targetPort: 5432
