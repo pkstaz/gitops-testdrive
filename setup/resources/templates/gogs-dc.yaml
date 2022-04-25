@@ -1,11 +1,9 @@
 kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
-  annotations:
-    openshift.io/generated-by: OpenShiftNewApp
   resourceVersion: '169351'
   name: gogs
-  namespace: gogs
+  namespace: {{ .Values.gogs.namespace }}
   labels:
     app: gogs
 spec:
@@ -44,8 +42,6 @@ spec:
       labels:
         app: gogs
         deploymentconfig: gogs
-      annotations:
-        openshift.io/generated-by: gitops-workshop
     spec:
       restartPolicy: Always
       serviceAccountName: gogs

@@ -3,9 +3,8 @@ apiVersion: apps.openshift.io/v1
 metadata:
   annotations:
     description: Defines how to deploy the database
-    openshift.io/generated-by: gitops-workshop
   name: gogs-postgresql
-  namespace: gogs
+  namespace: {{ .Values.gogs.namespace }}
   labels:
     app: gogs
 spec:

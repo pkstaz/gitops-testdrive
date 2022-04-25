@@ -3,9 +3,8 @@ kind: Service
 metadata:
   annotations:
     description: The Gogs server's http port
-    openshift.io/generated-by: gitops-workshop
   name: gogs
-  namespace: gogs
+  namespace: {{ .Values.gogs.namespace }}
 spec:
   selector:
     app: gogs

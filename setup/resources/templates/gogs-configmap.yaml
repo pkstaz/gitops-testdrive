@@ -2,11 +2,9 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: gogs-config
-  namespace: gogs
+  namespace: {{ .Values.gogs.namespace }}
   labels:
     app: gogs
-  annotations:
-    openshift.io/generated-by: gitops-workshop
 data:
   app.ini: |
     RUN_MODE = prod
@@ -23,8 +21,8 @@ data:
     ROOT = /opt/gogs/data/repositories
 
     [server]
-    ROOT_URL=http://gogs.{{ .Values.gogs.wildcard }}
-    SSH_DOMAIN=gogs.{{ .Values.gogs.wildcard }}
+    ROOT_URL=http://gogs-{{ .Values.gogs.namespace }}.{{ .Values.gogs.wildcard }}
+    SSH_DOMAIN=gogs-{{ .Values.gogs.namespace }}.{{ .Values.gogs.wildcard }}
 
     [security]
     INSTALL_LOCK = true

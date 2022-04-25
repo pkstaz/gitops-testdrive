@@ -2,7 +2,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: gogs
-  namespace: gogs
+  namespace: {{ .Values.gogs.namespace }}
 spec:
   path: /
   to:

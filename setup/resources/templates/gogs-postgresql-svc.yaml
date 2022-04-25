@@ -3,10 +3,9 @@ kind: Service
 metadata:
   annotations:
     description: The Gogs server's http port
-    openshift.io/generated-by: gitops-workshop
     service.alpha.openshift.io/dependencies: '[{"name":"gogs-postgresql","namespace":"gogs","kind":"Service"}]'    
   name: gogs-postgresql
-  namespace: gogs
+  namespace: {{ .Values.gogs.namespace }}
 spec:
   selector:
     app: gogs-postgresql
