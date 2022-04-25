@@ -5,7 +5,7 @@ metadata:
     description: The Gogs server's http port
     openshift.io/generated-by: gitops-workshop
     service.alpha.openshift.io/dependencies: '[{"name":"gogs-postgresql","namespace":"gogs","kind":"Service"}]'    
-  name: gogs
+  name: gogs-postgresql
   namespace: gogs
 spec:
   selector:
