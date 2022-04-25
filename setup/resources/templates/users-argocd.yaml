@@ -1,4 +1,4 @@
-{{- range untilStep (int .Values.FirstUser) (int .Values.LastUser) (int .Values.Interval) }}
+{{- range untilStep 1 (int .Values.Users) 1 }}
 {{ $n := . }}
 ---
 apiVersion: argoproj.io/v1alpha1
