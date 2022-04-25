@@ -5,6 +5,7 @@ metadata:
     description: The Gogs git server (https://gogs.io/)
     tags: instant-app,gogs,go,golang
   name: gogs
+  namespace: {{ .Values.gogs.namespace }}
 objects:
 - kind: ServiceAccount
   apiVersion: v1
