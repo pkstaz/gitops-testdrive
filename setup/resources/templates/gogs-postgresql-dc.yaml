@@ -38,8 +38,6 @@ spec:
       creationTimestamp: null
       labels:
         name: gogs-postgresql
-      annotations:
-        openshift.io/generated-by: OpenShiftNewApp
     spec:
       restartPolicy: Always
       serviceAccountName: gogs
