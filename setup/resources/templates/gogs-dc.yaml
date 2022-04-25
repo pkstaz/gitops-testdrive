@@ -1,0 +1,103 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  resourceVersion: '169351'
+  name: gogs
+  namespace: gogs
+  labels:
+    app: gogs
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - gogs
+        from:
+          kind: ImageStreamTag
+          namespace: gogs
+          name: 'gogs:latest'
+        lastTriggeredImage: >-
+          docker.io/openshiftdemos/gogs@sha256:ca56061043c21500f587e938321d4f0ae38a74d4a9dd50ae70f8b628d19e0f32
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: gogs
+    deploymentconfig: gogs
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gogs
+        deploymentconfig: gogs
+      annotations:
+        openshift.io/generated-by: gitops-workshop
+    spec:
+      restartPolicy: Always
+      serviceAccountName: gogs
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources: {}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 40
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 10
+          terminationMessagePath: /dev/termination-log
+          name: gogs
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 40
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 10
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: gogs-data
+              mountPath: /opt/gogs/data
+            - name: gogs-config
+              mountPath: /etc/gogs/conf
+          terminationMessagePolicy: File
+          image: >-
+            docker.io/openshiftdemos/gogs@sha256:ca56061043c21500f587e938321d4f0ae38a74d4a9dd50ae70f8b628d19e0f32
+      serviceAccount: gogs
+      volumes:
+        - name: gogs-data
+          persistentVolumeClaim:
+            claimName: gogs-data
+        - name: gogs-config
+          configMap:
+            name: gogs-config
+            items:
+              - key: app.ini
+                path: app.ini
+            defaultMode: 420
+      dnsPolicy: ClusterFirst

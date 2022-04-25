@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: gogs
+  namespace: gogs
+spec:
+  path: /
+  to:
+    kind: Service
+    name: gogs
+  port:
+    targetPort: 3000

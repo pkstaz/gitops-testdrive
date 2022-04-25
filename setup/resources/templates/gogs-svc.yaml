@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: The Gogs server's http port
+    openshift.io/generated-by: gitops-workshop
+  name: gogs
+  namespace: gogs
+spec:
+  selector:
+    app: gogs
+  ports:
+    - name: postgresql
+      protocol: TCP
+      port: 5432
+      targetPort: 5432

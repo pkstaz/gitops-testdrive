@@ -1,0 +1,106 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    description: Defines how to deploy the database
+    openshift.io/generated-by: gitops-workshop
+  name: gogs-postgresql
+  namespace: gogs
+  labels:
+    app: gogs
+spec:
+  strategy:
+    type: Recreate
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - postgresql
+        from:
+          kind: ImageStreamTag
+          namespace: openshift
+          name: 'postgresql:10-el8'
+        lastTriggeredImage: >-
+          postgresql:10-el8
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    name: gogs-postgresql
+  template:
+    metadata:
+      name: gogs-postgresql
+      creationTimestamp: null
+      labels:
+        name: gogs-postgresql
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      restartPolicy: Always
+      serviceAccountName: gogs
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources:
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - '-i'
+                - '-c'
+                - >-
+                  psql -h 127.0.0.1 -U ${POSTGRESQL_USER} -q -d
+                  ${POSTGRESQL_DATABASE} -c 'SELECT 1'
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 10
+          terminationMessagePath: /dev/termination-log
+          name: postgresql
+          livenessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 10
+          env:
+            - name: POSTGRESQL_USER
+              value: gogs
+            - name: POSTGRESQL_PASSWORD
+              value: gogs
+            - name: POSTGRESQL_DATABASE
+              value: gogs
+            - name: POSTGRESQL_MAX_CONNECTIONS
+              value: '100'
+            - name: POSTGRESQL_SHARED_BUFFERS
+              value: 12MB
+            - name: POSTGRESQL_ADMIN_PASSWORD
+              value: 6HwkNWiR
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: gogs-postgres-data
+              mountPath: /var/lib/pgsql/data
+          terminationMessagePolicy: File
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:52a87fcf7d580750512ca0ccc569dce79c726fda64bf40a0159bc4ba30caac10
+      serviceAccount: gogs
+      volumes:
+        - name: gogs-postgres-data
+          persistentVolumeClaim:
+            claimName: gogs-postgres-data
+      dnsPolicy: ClusterFirst

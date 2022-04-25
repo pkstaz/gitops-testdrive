@@ -1,2 +1,5 @@
 #LastUser plus 1, if you need 5 users set 6. 
 Users: 0
+
+gogs: 
+  wildcard: apps.cluster.xy123.xy123.sandbox123.domain
