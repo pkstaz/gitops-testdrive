@@ -2,5 +2,4 @@
 Users: 0
 
 gogs: 
-  wildcard: apps.cluster.xy123.xy123.sandbox123.domain
   namespace: openshift-gogs
