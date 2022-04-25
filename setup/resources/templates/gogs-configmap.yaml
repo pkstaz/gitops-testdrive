@@ -23,8 +23,8 @@ data:
     ROOT = /opt/gogs/data/repositories
 
     [server]
-    ROOT_URL=http://gogs.{{ Values.gogs.wildcard }}
-    SSH_DOMAIN=gogs.{{ Values.gogs.wildcard }}
+    ROOT_URL=http://gogs.{{ .Values.gogs.wildcard }}
+    SSH_DOMAIN=gogs.{{ .Values.gogs.wildcard }}
 
     [security]
     INSTALL_LOCK = true
