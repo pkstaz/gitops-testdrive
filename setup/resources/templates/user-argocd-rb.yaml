@@ -15,4 +15,58 @@ subjects:
   name: openshift-gitops-argocd-application-controller
   # apiGroup: "rbac.authorization.k8s.io"
   namespace: openshift-gitops
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: user{{$n}}-openshift-gitops-argocd-application-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: openshift-gitops-openshift-gitops-argocd-application-controller
+subjects:
+- kind: ServiceAccount
+  name: user{{$n}}-openshift-gitops-argocd-application-controller
+  # apiGroup: rbac.authorization.k8s.io
+  namespace: user{{$n}}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: user{{$n}}-openshift-gitops-openshift-gitops-argocd-server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: openshift-gitops-openshift-gitops-argocd-server
+subjects:
+- kind: ServiceAccount
+  name: user{{$n}}-openshift-gitops-argocd-server
+  # apiGroup: rbac.authorization.k8s.io
+  namespace: user{{$n}}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: user{{$n}}-argocd-application-controller_edit_role
+  namespace: user{{$n}}-petclinic
+roleRef:
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+subjects:
+- kind: ServiceAccount
+  name: openshift-gitops-argocd-application-controller
+  # apiGroup: "rbac.authorization.k8s.io"
+  namespace: openshift-gitops
+- kind: ServiceAccount
+  name: user{{$n}}-openshift-gitops-argocd-application-controller
+  # apiGroup: "rbac.authorization.k8s.io"
+  namespace: user{{$n}}
+- kind: ServiceAccount
+  name: openshift-gitops-argocd-application-controller
+  # apiGroup: "rbac.authorization.k8s.io"
+  namespace: user{{$n}}
 {{- end }}
