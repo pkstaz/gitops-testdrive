@@ -5,7 +5,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ArgoCD
 metadata:
   name: user{{$n}}-openshift-gitops
-  namespace: user{{$n}}
+  namespace: user{{$n}}-openshift-gitops
 spec:
   server:
     autoscale:
