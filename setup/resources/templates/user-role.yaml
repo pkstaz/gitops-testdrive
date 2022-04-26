@@ -23,5 +23,5 @@ roleRef:
   name: user1-openshift-gitops-argocd-application-controller
 subjects:
 - kind: ServiceAccount
-  name: user{{$n}}-openshift-gitops-argocd-application-controller
+  name: user1-openshift-gitops-argocd-application-controller
   namespace: user1
