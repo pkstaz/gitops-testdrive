@@ -7,6 +7,9 @@ metadata:
   name: 'user{{$n}}-argocd'
   namespace: openshift-gitops
 spec:
+  syncPolicy:
+    automated:
+      prune: true
   destination:
     namespace: user{{$n}}-openshift-gitops
     server: 'https://kubernetes.default.svc'
