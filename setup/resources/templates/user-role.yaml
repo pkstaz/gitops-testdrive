@@ -27,4 +27,7 @@ subjects:
 - kind: ServiceAccount
   name: user{{$n}}-openshift-gitops-argocd-application-controller
   namespace: user{{$n}}
+- kind: ServiceAccount
+  name: user{{$n}}-openshift-gitops-argocd-application-controller
+  namespace: user{{$n}}-petclinic
 {{- end }}
