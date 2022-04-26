@@ -144,4 +144,32 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: user{{$n}}-openshift-gitops-openshift-gitops-argocd-application-controller
+
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: argocd-manager-role
+  namespace: user{{$n}}-petclinic
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - '*'
+    resources:
+      - '*'
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: argocd-manager-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: user1-openshift-gitops-argocd-application-controller
+    namespace: user{{$n}}-petclinic
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: argocd-manager-role
 {{- end }}
