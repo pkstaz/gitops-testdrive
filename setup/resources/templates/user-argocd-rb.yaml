@@ -69,4 +69,8 @@ subjects:
   name: openshift-gitops-argocd-application-controller
   # apiGroup: "rbac.authorization.k8s.io"
   namespace: user{{$n}}
+- kind: ServiceAccount
+  name: user{{$n}}-openshift-gitops-argocd-application-controller
+  # apiGroup: "rbac.authorization.k8s.io"
+  namespace: user{{$n}}-petclinic
 {{- end }}
