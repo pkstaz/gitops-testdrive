@@ -12,11 +12,11 @@ rules:
   - "*"
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: user1-openshift-gitops-argocd-application-controller-role-admin
-  namespace: user-petclinic
+  namespace: user1-petclinic
 roleRef:
   apiGroup: rbac.authorization.k8s.io  
   kind: Role
