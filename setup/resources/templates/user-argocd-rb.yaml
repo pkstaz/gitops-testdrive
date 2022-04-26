@@ -149,7 +149,7 @@ roleRef:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: openshift-gitops-argocd-application-controller_edit_role
+  name: user{{$n}}-openshift-gitops-argocd-application-controller_edit_role
   namespace: user{{$n}}-petclinic
 subjects:
   - kind: ServiceAccount
