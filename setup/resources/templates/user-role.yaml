@@ -13,23 +13,23 @@ rules:
   verbs:
   - "*"
 
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: user{{$n}}-openshift-gitops-argocd-application-controller-role-admin
-  namespace: user{{$n}}-petclinic
-roleRef:
-  apiGroup: rbac.authorization.k8s.io  
-  kind: Role
-  name: user{{$n}}-openshift-gitops-argocd-application-controller
-subjects:
-- kind: ServiceAccount
-  name: user{{$n}}-openshift-gitops-argocd-application-controller
-  namespace: user{{$n}}
-- kind: ServiceAccount
-  name: user{{$n}}-openshift-gitops-argocd-application-controller
-  namespace: user{{$n}}-petclinic
+# ---
+# kind: RoleBinding
+# apiVersion: rbac.authorization.k8s.io/v1
+# metadata:
+#   name: user{{$n}}-openshift-gitops-argocd-application-controller-role-admin
+#   namespace: user{{$n}}-petclinic
+# roleRef:
+#   apiGroup: rbac.authorization.k8s.io  
+#   kind: Role
+#   name: user{{$n}}-openshift-gitops-argocd-application-controller
+# subjects:
+# - kind: ServiceAccount
+#   name: user{{$n}}-openshift-gitops-argocd-application-controller
+#   namespace: user{{$n}}
+# - kind: ServiceAccount
+#   name: user{{$n}}-openshift-gitops-argocd-application-controller
+#   namespace: user{{$n}}-petclinic
 
 ---
 kind: RoleBinding
