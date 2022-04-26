@@ -23,7 +23,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: user{{$n}}-admin-user{{$n}}-petclinic-namespace
-  namespace: user{{$n}}
+  namespace: user{{$n}}-petclinic
   labels:
     app: workshop-gitops
 subjects:
