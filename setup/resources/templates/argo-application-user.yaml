@@ -10,6 +10,7 @@ spec:
   syncPolicy:
     automated:
       prune: true
+      selfHeal: true
   destination:
     namespace: user{{$n}}-openshift-gitops
     server: 'https://kubernetes.default.svc'
