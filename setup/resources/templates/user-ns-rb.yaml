@@ -12,7 +12,6 @@ subjects:
   - kind: User
     apiGroup: rbac.authorization.k8s.io
     name: user{{$n}}
-    namespace: user{{$n}}-openshift-gitops
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -30,7 +29,6 @@ subjects:
   - kind: User
     apiGroup: rbac.authorization.k8s.io
     name: user{{$n}}
-    namespace: user{{$n}}-petclinic
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
