@@ -815,7 +815,7 @@ spec:
         - ""
         - --appendonly
         - "no"
-        image: redis:6.2.6-alpine
+        image: registry.redhat.io/rhel8/redis-6
         imagePullPolicy: Always
         name: redis
         ports:
